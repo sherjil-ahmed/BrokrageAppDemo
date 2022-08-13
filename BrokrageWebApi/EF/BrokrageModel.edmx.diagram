@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fe564c38c66c495ea09a7698b9842f96" Name="Diagram1">
+        <EntityTypeShape EntityType="BrokerageDBModel.Entities.Brokerage" Width="1.5" PointX="3" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BrokerageDBModel.Entities.Client" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BrokerageDBModel.Entities.Customer" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BrokerageDBModel.Entities.Insurer" Width="1.5" PointX="3" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BrokerageDBModel.Entities.Policy" Width="1.5" PointX="7.5" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BrokerageDBModel.Entities.PolicyType" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BrokerageDBModel.Entities.Status" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Brokerage_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Client_Brokerage" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Client_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Policy_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Customer_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Policy_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Insurer_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Policy_Insurer" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Policy_PolicyType" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_Policy_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="BrokerageDBModel.Entities.FK_PolicyType_Status" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

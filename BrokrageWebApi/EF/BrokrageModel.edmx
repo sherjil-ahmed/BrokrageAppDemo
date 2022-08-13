@@ -1,0 +1,648 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BrokerageDBModel.Entities.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brokerage">
+          <Key>
+            <PropertyRef Name="BrokerageId" />
+          </Key>
+          <Property Name="BrokerageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="BrokerageId" Type="int" />
+          <Property Name="Description" Type="varbinary" MaxLength="500" />
+          <Property Name="StatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="AddressLine1" Type="varchar" MaxLength="500" />
+          <Property Name="AddressLine2" Type="varchar" MaxLength="500" />
+          <Property Name="AddressLine3" Type="varchar" MaxLength="500" />
+          <Property Name="StatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="Insurer">
+          <Key>
+            <PropertyRef Name="InsurerId" />
+          </Key>
+          <Property Name="InsurerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Decription" Type="varbinary" MaxLength="500" />
+          <Property Name="StatusId" Type="int" />
+        </EntityType>
+        <EntityType Name="Policy">
+          <Key>
+            <PropertyRef Name="PolicyId" />
+          </Key>
+          <Property Name="PolicyId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustommerId" Type="int" />
+          <Property Name="InsurerId" Type="int" />
+          <Property Name="PolicyTypeId" Type="int" />
+          <Property Name="Premium" Type="float" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+        </EntityType>
+        <EntityType Name="PolicyType">
+          <Key>
+            <PropertyRef Name="PolicyTypeId" />
+          </Key>
+          <Property Name="PolicyTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+        </EntityType>
+        <Association Name="FK_Brokerage_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Brokerage" Type="Self.Brokerage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Brokerage">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Brokerage">
+          <End Role="Brokerage" Type="Self.Brokerage" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokerage">
+              <PropertyRef Name="BrokerageId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="BrokerageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurer_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Insurer" Type="Self.Insurer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Insurer">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="CustommerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Insurer">
+          <End Role="Insurer" Type="Self.Insurer" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insurer">
+              <PropertyRef Name="InsurerId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="InsurerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_PolicyType">
+          <End Role="PolicyType" Type="Self.PolicyType" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PolicyType">
+              <PropertyRef Name="PolicyTypeId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="PolicyTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyType_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="PolicyType" Type="Self.PolicyType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="PolicyType">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BrokerageDBModelEntitiesStoreContainer">
+          <EntitySet Name="Brokerage" EntityType="Self.Brokerage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Insurer" EntityType="Self.Insurer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Policy" EntityType="Self.Policy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PolicyType" EntityType="Self.PolicyType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Brokerage_Status" Association="Self.FK_Brokerage_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Brokerage" EntitySet="Brokerage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Brokerage" Association="Self.FK_Client_Brokerage">
+            <End Role="Brokerage" EntitySet="Brokerage" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Status" Association="Self.FK_Client_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Client" EntitySet="Client" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Status" Association="Self.FK_Customer_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurer_Status" Association="Self.FK_Insurer_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Insurer" EntitySet="Insurer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Client" Association="Self.FK_Policy_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Policy" EntitySet="Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Customer" Association="Self.FK_Policy_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Policy" EntitySet="Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Insurer" Association="Self.FK_Policy_Insurer">
+            <End Role="Insurer" EntitySet="Insurer" />
+            <End Role="Policy" EntitySet="Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_PolicyType" Association="Self.FK_Policy_PolicyType">
+            <End Role="PolicyType" EntitySet="PolicyType" />
+            <End Role="Policy" EntitySet="Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Status" Association="Self.FK_Policy_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Policy" EntitySet="Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyType_Status" Association="Self.FK_PolicyType_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="PolicyType" EntitySet="PolicyType" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BrokerageDBModel.Entities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Brokerage">
+          <Key>
+            <PropertyRef Name="BrokerageId" />
+          </Key>
+          <Property Name="BrokerageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Brokerage_Status" FromRole="Brokerage" ToRole="Status" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK_Client_Brokerage" FromRole="Brokerage" ToRole="Client" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientId" />
+          </Key>
+          <Property Name="ClientId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="BrokerageId" Type="Int32" />
+          <Property Name="Description" Type="Binary" MaxLength="500" FixedLength="false" />
+          <Property Name="StatusId" Type="Int32" />
+          <NavigationProperty Name="Brokerage" Relationship="Self.FK_Client_Brokerage" FromRole="Client" ToRole="Brokerage" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Client_Status" FromRole="Client" ToRole="Status" />
+          <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Client" FromRole="Client" ToRole="Policy" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerId" />
+          </Key>
+          <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AddressLine3" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="StatusId" Type="Int32" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Customer_Status" FromRole="Customer" ToRole="Status" />
+          <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Customer" FromRole="Customer" ToRole="Policy" />
+        </EntityType>
+        <EntityType Name="Insurer">
+          <Key>
+            <PropertyRef Name="InsurerId" />
+          </Key>
+          <Property Name="InsurerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Decription" Type="Binary" MaxLength="500" FixedLength="false" />
+          <Property Name="StatusId" Type="Int32" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Insurer_Status" FromRole="Insurer" ToRole="Status" />
+          <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Insurer" FromRole="Insurer" ToRole="Policy" />
+        </EntityType>
+        <EntityType Name="Policy">
+          <Key>
+            <PropertyRef Name="PolicyId" />
+          </Key>
+          <Property Name="PolicyId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustommerId" Type="Int32" />
+          <Property Name="InsurerId" Type="Int32" />
+          <Property Name="PolicyTypeId" Type="Int32" />
+          <Property Name="Premium" Type="Double" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_Policy_Client" FromRole="Policy" ToRole="Client" />
+          <NavigationProperty Name="Customer" Relationship="Self.FK_Policy_Customer" FromRole="Policy" ToRole="Customer" />
+          <NavigationProperty Name="Insurer" Relationship="Self.FK_Policy_Insurer" FromRole="Policy" ToRole="Insurer" />
+          <NavigationProperty Name="PolicyType" Relationship="Self.FK_Policy_PolicyType" FromRole="Policy" ToRole="PolicyType" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Policy_Status" FromRole="Policy" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="PolicyType">
+          <Key>
+            <PropertyRef Name="PolicyTypeId" />
+          </Key>
+          <Property Name="PolicyTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_PolicyType" FromRole="PolicyType" ToRole="Policy" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_PolicyType_Status" FromRole="PolicyType" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Brokerages" Relationship="Self.FK_Brokerage_Status" FromRole="Status" ToRole="Brokerage" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK_Client_Status" FromRole="Status" ToRole="Client" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Status" FromRole="Status" ToRole="Customer" />
+          <NavigationProperty Name="Insurers" Relationship="Self.FK_Insurer_Status" FromRole="Status" ToRole="Insurer" />
+          <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Status" FromRole="Status" ToRole="Policy" />
+          <NavigationProperty Name="PolicyTypes" Relationship="Self.FK_PolicyType_Status" FromRole="Status" ToRole="PolicyType" />
+        </EntityType>
+        <Association Name="FK_Brokerage_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Brokerage" Type="Self.Brokerage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Brokerage">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Brokerage">
+          <End Role="Brokerage" Type="Self.Brokerage" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brokerage">
+              <PropertyRef Name="BrokerageId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="BrokerageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Client_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Client" Type="Self.Client" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Client">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Customer_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="CustommerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Insurer_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Insurer" Type="Self.Insurer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Insurer">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Insurer">
+          <End Role="Insurer" Type="Self.Insurer" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Insurer">
+              <PropertyRef Name="InsurerId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="InsurerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_PolicyType">
+          <End Role="PolicyType" Type="Self.PolicyType" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PolicyType">
+              <PropertyRef Name="PolicyTypeId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="PolicyTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyType_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="PolicyType" Type="Self.PolicyType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="PolicyType">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BrokerageDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brokerages" EntityType="Self.Brokerage" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Insurers" EntityType="Self.Insurer" />
+          <EntitySet Name="Policies" EntityType="Self.Policy" />
+          <EntitySet Name="PolicyTypes" EntityType="Self.PolicyType" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <AssociationSet Name="FK_Brokerage_Status" Association="Self.FK_Brokerage_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Brokerage" EntitySet="Brokerages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Brokerage" Association="Self.FK_Client_Brokerage">
+            <End Role="Brokerage" EntitySet="Brokerages" />
+            <End Role="Client" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Client_Status" Association="Self.FK_Client_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Client" EntitySet="Clients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Client" Association="Self.FK_Policy_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="Policy" EntitySet="Policies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Status" Association="Self.FK_Customer_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Customer" Association="Self.FK_Policy_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Policy" EntitySet="Policies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Insurer_Status" Association="Self.FK_Insurer_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Insurer" EntitySet="Insurers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Insurer" Association="Self.FK_Policy_Insurer">
+            <End Role="Insurer" EntitySet="Insurers" />
+            <End Role="Policy" EntitySet="Policies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_PolicyType" Association="Self.FK_Policy_PolicyType">
+            <End Role="PolicyType" EntitySet="PolicyTypes" />
+            <End Role="Policy" EntitySet="Policies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Status" Association="Self.FK_Policy_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Policy" EntitySet="Policies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyType_Status" Association="Self.FK_PolicyType_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="PolicyType" EntitySet="PolicyTypes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BrokerageDBModelEntitiesStoreContainer" CdmEntityContainer="BrokerageDBContext">
+          <EntitySetMapping Name="Brokerages">
+            <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Brokerage">
+              <MappingFragment StoreEntitySet="Brokerage">
+                <ScalarProperty Name="BrokerageId" ColumnName="BrokerageId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="BrokerageId" ColumnName="BrokerageId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+                <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+                <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Insurers">
+            <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Insurer">
+              <MappingFragment StoreEntitySet="Insurer">
+                <ScalarProperty Name="InsurerId" ColumnName="InsurerId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Decription" ColumnName="Decription" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Policies">
+            <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Policy">
+              <MappingFragment StoreEntitySet="Policy">
+                <ScalarProperty Name="PolicyId" ColumnName="PolicyId" />
+                <ScalarProperty Name="CustommerId" ColumnName="CustommerId" />
+                <ScalarProperty Name="InsurerId" ColumnName="InsurerId" />
+                <ScalarProperty Name="PolicyTypeId" ColumnName="PolicyTypeId" />
+                <ScalarProperty Name="Premium" ColumnName="Premium" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PolicyTypes">
+            <EntityTypeMapping TypeName="BrokerageDBModel.Entities.PolicyType">
+              <MappingFragment StoreEntitySet="PolicyType">
+                <ScalarProperty Name="PolicyTypeId" ColumnName="PolicyTypeId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

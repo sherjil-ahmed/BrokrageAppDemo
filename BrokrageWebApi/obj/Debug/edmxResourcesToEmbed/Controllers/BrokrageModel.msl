@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BrokerageDBModelEntitiesStoreContainer" CdmEntityContainer="BrokerageDBContext">
+    <EntitySetMapping Name="Brokerages">
+      <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Brokerage">
+        <MappingFragment StoreEntitySet="Brokerage">
+          <ScalarProperty Name="BrokerageId" ColumnName="BrokerageId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Client">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="BrokerageId" ColumnName="BrokerageId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="AddressLine1" ColumnName="AddressLine1" />
+          <ScalarProperty Name="AddressLine2" ColumnName="AddressLine2" />
+          <ScalarProperty Name="AddressLine3" ColumnName="AddressLine3" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Insurers">
+      <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Insurer">
+        <MappingFragment StoreEntitySet="Insurer">
+          <ScalarProperty Name="InsurerId" ColumnName="InsurerId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Decription" ColumnName="Decription" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Policies">
+      <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Policy">
+        <MappingFragment StoreEntitySet="Policy">
+          <ScalarProperty Name="PolicyId" ColumnName="PolicyId" />
+          <ScalarProperty Name="CustommerId" ColumnName="CustommerId" />
+          <ScalarProperty Name="InsurerId" ColumnName="InsurerId" />
+          <ScalarProperty Name="PolicyTypeId" ColumnName="PolicyTypeId" />
+          <ScalarProperty Name="Premium" ColumnName="Premium" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PolicyTypes">
+      <EntityTypeMapping TypeName="BrokerageDBModel.Entities.PolicyType">
+        <MappingFragment StoreEntitySet="PolicyType">
+          <ScalarProperty Name="PolicyTypeId" ColumnName="PolicyTypeId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Status">
+      <EntityTypeMapping TypeName="BrokerageDBModel.Entities.Status">
+        <MappingFragment StoreEntitySet="Status">
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
