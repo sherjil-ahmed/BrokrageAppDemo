@@ -18,7 +18,8 @@ namespace BrokrageWebApi.Controllers
         private BrokerageDBContext db = new BrokerageDBContext();
 
         // GET: api/Policies
-        public IHttpActionResult GetPolicies()
+        [HttpGet]
+        public IHttpActionResult Index()
         {
             var result = (from p in db.Policies
                           select new PolicyModel {
@@ -155,17 +156,17 @@ namespace BrokrageWebApi.Controllers
 
 
         // GET: api/Policies/5
-        [ResponseType(typeof(Policy))]
-        public IHttpActionResult GetPolicy(int id)
-        {
-            Policy policy = db.Policies.Find(id);
-            if (policy == null)
-            {
-                return NotFound();
-            }
+        //[ResponseType(typeof(Policy))]
+        //public IHttpActionResult GetPolicy(int id)
+        //{
+        //    Policy policy = db.Policies.Find(id);
+        //    if (policy == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return Ok(policy);
-        }
+        //    return Ok(policy);
+        //}
 
         // PUT: api/Policies/5
         [ResponseType(typeof(void))]
