@@ -1,5 +1,7 @@
 # BrokrageAppDemo
 InterviewCodingTest
+accessed online at http://74.208.24.160:81/Api/policies
+
 Create a SQL Server Database (script can be found under Database Script folder) you may need to change the path of database files inside the script before runing.
 db sCRIPT IS COMPATIBLE WITH sql Server 2012 Express edition
 open the solution in VS 2017 or 2019 (Community edition)
